@@ -106,7 +106,7 @@ PS C:\>Submit-AdlJob -Account "cosmosveadla" -ResourceGroup "rg-rollandeastus2" 
 
 This command submits a Data Lake Analytics Scope job.
 
-## PARAMETER
+## PARAMETERS
 
 ### -Account
 Name of Data Lake Analytics account under which the job will be submitted.

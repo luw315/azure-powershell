@@ -466,7 +466,14 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
                 "Specify the percentage to use for Maximum Unavailability of data."
             )]
         public int MaxUnavailability = -1;
-        
+
+        [Parameter(ValueFromPipelineByPropertyName = true, ParameterSetName = ScopeJobWithScriptPath,
+            Mandatory = true,
+            HelpMessage =
+                "The scope Sdk path"
+            )]
+        public string ScopeSdkPath { get; set; }
+
         public SwitchParameter SuppressParameterQuoting { get; set; }
 
         protected override void BeginProcessing()

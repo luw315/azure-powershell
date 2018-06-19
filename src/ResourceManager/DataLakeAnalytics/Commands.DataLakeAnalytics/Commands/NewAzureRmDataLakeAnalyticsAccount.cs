@@ -49,7 +49,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
         [ValidateNotNull]
         public string DefaultDataLakeStore { get; set; }
 
-        [Parameter(ValueFromPipelineByPropertyName = true, Position = 4, Mandatory = false,
+        [Parameter(ValueFromPipelineByPropertyName = true, Mandatory = false,
             HelpMessage = "A string,string dictionary of tags associated with this account")]
         [ValidateNotNull]
         public Hashtable Tag { get; set; }

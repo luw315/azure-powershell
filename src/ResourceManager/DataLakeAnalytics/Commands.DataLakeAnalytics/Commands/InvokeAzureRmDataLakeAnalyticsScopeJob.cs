@@ -8,6 +8,7 @@ using Microsoft.Azure.Commands.DataLakeAnalytics.Models;
 using Microsoft.Azure.Commands.DataLakeAnalytics.Properties;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using Microsoft.Rest.Azure;
+using Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope;
 
 namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands
 {
@@ -16,6 +17,15 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands
     public class InvokeAzureRmDataLakeAnalyticsScopeJob : DataLakeAnalyticsCmdletBase
     {
         private static string _option = "Run";
+
+        protected const string ScopeJobWithScriptPath = "Run/CompileJobWithScriptPathForScope";
+
+        [Parameter(ValueFromPipelineByPropertyName = true, ParameterSetName = ScopeJobWithScriptPath,
+            Mandatory = true,
+            HelpMessage =
+                "The scope Sdk path"
+            )]
+        public string ScopeSdkPath { get; set; }
 
         //[Parameter(ValueFromPipelineByPropertyName = true, ParameterSetName = ScopeJobWithScriptPath, Position = 0,
         //     Mandatory = false, HelpMessage = "The default Data Lake storage account for this script")]
@@ -101,7 +111,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands
             try
             {
                 var process = new Process();
-                process.StartInfo.FileName = GetScopeExePath();
+                process.StartInfo.FileName = this.GetScopeExePath(this.ScopeSdkPath);
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.Arguments = string.Format(@"{0} -i {1} {2} -on adl", Option, powerShellDestinationPath,

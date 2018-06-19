@@ -40,27 +40,6 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
     /// </summary>
     public abstract class DataLakeAnalyticsCmdletBase : AzureRMCmdlet
     {
-        protected const string ScopeJobWithScriptPath = "Run/CompileJobWithScriptPathForScope";
-
-        [Parameter(ValueFromPipelineByPropertyName = true, ParameterSetName = ScopeJobWithScriptPath,
-            Mandatory = true,
-            HelpMessage =
-                "The scope Sdk path"
-            )]
-        public string ScopeSdkPath { get; set; }
-
-        internal string GetScopeExePath()
-        {
-            if (string.IsNullOrWhiteSpace(ScopeSdkPath))
-            {
-                throw new CloudException(string.Format(Properties.Resources.ScopeSDKPathDoesNotExist, ScopeSdkPath));
-            }
-            else
-            {
-                return SessionState.Path.GetUnresolvedProviderPathFromPSPath(ScopeSdkPath) + @"\scope.exe";
-            }
-        }
-
         private DataLakeAnalyticsClient _bigAnalyticsClient;
 
         /// <summary>

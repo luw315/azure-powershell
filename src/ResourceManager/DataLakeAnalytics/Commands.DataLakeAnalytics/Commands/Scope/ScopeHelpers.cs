@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.Commands.Common.Authentication.Abstractions;
+﻿using Hyak.Common;
+using Microsoft.Azure.Commands.Common.Authentication.Abstractions;
 using Microsoft.Azure.Commands.DataLakeAnalytics.Models;
 using Microsoft.Azure.Management.DataLake.Analytics.Extension;
 using Microsoft.Azure.Management.DataLake.Analytics.Extension.Models;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope
 {
-    public class ScopeHelpers
+    public static class ScopeHelpers
     {
         private static bool ExtractJobResources(string scriptPath, string tokenFile, SubmitAzureDataLakeAnalyticsJob command, string resourceGroup, out string newScriptPath, out string nebulaCommandLineArgs, out List<string> clusterResources, out List<string> localResources)
         {
@@ -79,7 +80,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope
             Process process = new Process();
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            startInfo.FileName = command.GetScopeExePath();
+            startInfo.FileName = command.GetScopeExePath(command.ScopeSdkPath);
             startInfo.Arguments = extractCommands.ToString();
             startInfo.UseShellExecute = false;
             startInfo.CreateNoWindow = true;
@@ -116,6 +117,18 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope
             DataLakeAnalyticsAccount account = command.DataLakeAnalyticsClient.GetAccount(resourceGroup, command.Account);
             DataLakeStoreAccountInfo sa = account.DataLakeStoreAccounts.First(s => s.Name == account.DefaultDataLakeStoreAccount);
             return string.Format("adl://{0}.{1}/", sa.Name, sa.Suffix);
+        }
+
+        internal static string GetScopeExePath(this DataLakeAnalyticsCmdletBase command, string scopeSdkPath)
+        {
+            if (string.IsNullOrWhiteSpace(scopeSdkPath))
+            {
+                throw new CloudException(string.Format(Properties.Resources.ScopeSDKPathDoesNotExist, scopeSdkPath));
+            }
+            else
+            {
+                return command.SessionState.Path.GetUnresolvedProviderPathFromPSPath(scopeSdkPath) + @"\scope.exe";
+            }
         }
 
         public static JobInformation DoSubmit(List<string> clusterResources, List<string> localResources, string scripPath, SubmitAzureDataLakeAnalyticsJob command, string resourceGroup)
