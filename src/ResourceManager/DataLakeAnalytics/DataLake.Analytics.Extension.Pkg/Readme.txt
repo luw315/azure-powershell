@@ -1,0 +1,1 @@
+﻿This is Microsoft.Azure.Management.DataLake.Analytics SDK internal extension package 

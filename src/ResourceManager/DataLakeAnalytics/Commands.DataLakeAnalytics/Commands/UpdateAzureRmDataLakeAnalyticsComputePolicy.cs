@@ -62,12 +62,12 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
         {
             if (!MinPriorityPerJob.HasValue && !MaxAnalyticsUnitsPerJob.HasValue)
             {
-                throw new ArgumentException(Resources.MissingComputePolicyField);
+                throw new ArgumentException(Properties.Resources.MissingComputePolicyField);
             }
 
             ConfirmAction(
                 string.Format(
-                    Resources.UpdateDataLakeComputePolicy,
+                    Properties.Resources.UpdateDataLakeComputePolicy,
                     Name,
                     MinPriorityPerJob.HasValue ? "\r\nMinPriorityPerJob: " + MinPriorityPerJob.Value : string.Empty,
                     MaxAnalyticsUnitsPerJob.HasValue ? "\r\nMaxAnalyticsUnitsPerJob: " + MaxAnalyticsUnitsPerJob.Value : string.Empty),

@@ -83,15 +83,15 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
 
         public override void ExecuteCmdlet()
         {
-            WriteWarning(Resources.IncorrectOutputTypeWarning);
+            WriteWarning(Properties.Resources.IncorrectOutputTypeWarning);
             if (Uri != null && Uri.Port <= 0)
             {
-                WriteWarning(string.Format(Resources.NoPortSpecified, Uri));
+                WriteWarning(string.Format(Properties.Resources.NoPortSpecified, Uri));
             }
 
             var toUse = Uri ?? new Uri(string.Format("https://{0}:{1}", DatabaseHost, Port));
             ConfirmAction(
-                string.Format(Resources.SetDataLakeCatalogCredential, CredentialName, DatabaseName),
+                string.Format(Properties.Resources.SetDataLakeCatalogCredential, CredentialName, DatabaseName),
                 CredentialName, () =>
                     DataLakeAnalyticsClient.UpdateCredentialPassword(
                         Account,

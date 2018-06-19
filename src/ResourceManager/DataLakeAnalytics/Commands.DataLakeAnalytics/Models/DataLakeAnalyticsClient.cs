@@ -25,6 +25,9 @@ using System.Linq;
 using System.Management.Automation;
 using System.Net;
 using Microsoft.Azure.Management.DataLake.Analytics;
+using Microsoft.Azure.Management.DataLake.Analytics.Extension;
+using Microsoft.Azure.Management.DataLake.Store;
+using Microsoft.Azure.Commands.ResourceManager.Cmdlets.Components;
 
 namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
 {
@@ -33,6 +36,8 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
         private readonly DataLakeAnalyticsAccountManagementClient _accountClient;
         private readonly DataLakeAnalyticsCatalogManagementClient _catalogClient;
         private readonly DataLakeAnalyticsJobManagementClient _jobClient;
+        internal readonly DataLakeAnalyticsJobManagementExtensionClient JobExClient;
+        internal readonly DataLakeStoreFileSystemManagementClient FsClient;
         private readonly Guid _subscriptionId;
         private static Queue<Guid> jobIdQueue;
 
@@ -61,7 +66,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
         {
             if (context == null)
             {
-                throw new ApplicationException(Resources.InvalidDefaultSubscription);
+                throw new ApplicationException(Properties.Resources.InvalidDefaultSubscription);
             }
             
             _accountClient = DataLakeAnalyticsCmdletBase.CreateAdlaClient<DataLakeAnalyticsAccountManagementClient>(context,
@@ -71,11 +76,20 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
             _jobClient = DataLakeAnalyticsCmdletBase.CreateAdlaClient<DataLakeAnalyticsJobManagementClient>(context,
                 AzureEnvironment.Endpoint.AzureDataLakeAnalyticsCatalogAndJobEndpointSuffix, true);
 
+            JobExClient = DataLakeAnalyticsCmdletBase.CreateAdlaExtensionClient(context,
+                AzureEnvironment.Endpoint.AzureDataLakeAnalyticsCatalogAndJobEndpointSuffix, true);
             _catalogClient = DataLakeAnalyticsCmdletBase.CreateAdlaClient<DataLakeAnalyticsCatalogManagementClient>(context,
                 AzureEnvironment.Endpoint.AzureDataLakeAnalyticsCatalogAndJobEndpointSuffix, true);
+
+            FsClient = DataLakeAnalyticsCmdletBase.CreateAdlsClient<DataLakeStoreFileSystemManagementClient>(context,
+               AzureEnvironment.Endpoint.AzureDataLakeStoreFileSystemEndpointSuffix, true);
         }
 
         #region Account Related Operations
+        internal DataLakeAnalyticsAccountManagementClient GetDataLakeAnalyticsAccountManagementClient()
+        {
+            return this._accountClient;
+        }
 
         public DataLakeAnalyticsAccount CreateOrUpdateAccount(string resourceGroupName, string accountName,
             string location,
@@ -235,7 +249,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
 
         public List<DataLakeAnalyticsAccountBasic> ListAccounts(string resourceGroupName, string filter, int? top, int? skip)
         {
-            var parameters = new ODataQuery<DataLakeAnalyticsAccount>
+            var parameters = new ODataQuery<DataLakeAnalyticsAccountBasic>
             {
                 Filter = filter,
                 Top = top,
@@ -1299,9 +1313,24 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
             return _jobClient.Job.Build(accountName, jobToBuild);
         }
 
+        public JobInformation UpdateJob(string accountName, Guid jobId, int? degreeOfParallelism = null, int? priority = null, Hashtable tags = null)
+        {
+            return _jobClient.Job.Update(accountName, jobId, new UpdateJobParameters
+            {
+                DegreeOfParallelism = degreeOfParallelism,
+                Priority = priority,
+                Tags = TagsConversionHelper.CreateTagDictionary(tags, true)
+            });
+        }
+
         public void CancelJob(string accountName, Guid jobId)
         {
             _jobClient.Job.Cancel(accountName, jobId);
+        }
+
+        public void YieldJob(string accountName, Guid jobId)
+        {
+            _jobClient.Job.YieldOperation(accountName, jobId);
         }
 
         public JobDataPath GetDebugDataPaths(string accountName, Guid jobId)
@@ -1361,14 +1390,10 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
         {
             try
             {
-                var acctId =
+                var account =
                     ListAccounts(null, null, null, null)
-                        .Find(x => x.Name.Equals(accountName, StringComparison.InvariantCultureIgnoreCase))
-                        .Id;
-                var rgStart = acctId.IndexOf("resourceGroups/", StringComparison.InvariantCultureIgnoreCase) +
-                              ("resourceGroups/".Length);
-                var rgLength = (acctId.IndexOf("/providers/", StringComparison.InvariantCultureIgnoreCase)) - rgStart;
-                return acctId.Substring(rgStart, rgLength);
+                        .Find(x => x.Name.Equals(accountName, StringComparison.InvariantCultureIgnoreCase));
+                return ResourceIdUtility.GetResourceGroupName(account.Id);
             }
             catch
             {

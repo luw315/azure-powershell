@@ -205,7 +205,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid JobType selected. Please select -USql when submitting a job.
+        ///   Looks up a localized string similar to Invalid JobType selected. Please select -Type when submitting a job.
         /// </summary>
         internal static string InvalidJobType {
             get {
@@ -259,6 +259,15 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to At least -DegreeOfParallelism, -Priority, or -Tags must be specified when updating a Data Lake Analytics job..
+        /// </summary>
+        internal static string MissingUpdateJobField {
+            get {
+                return ResourceManager.GetString("MissingUpdateJobField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More than {0} jobs exist in the account. Specify -Top with a larger value to retrieve more jobs. Note that large values of -Top will take time to retrieve all items..
         /// </summary>
         internal static string MoreJobsToGetWarning {
@@ -295,7 +304,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No subscription found in the context.  Please ensure that the credentials you provided are authorized to access an Azure subscription, then run Login-AzureRMAccount to login..
+        ///   Looks up a localized string similar to No subscription found in the context.  Please ensure that the credentials you provided are authorized to access an Azure subscription, then run Connect-AzureRMAccount to login..
         /// </summary>
         internal static string NoSubscriptionInContext {
             get {
@@ -457,6 +466,15 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Scope SDK path &apos;{0}&apos; does not exist or the current user does not have permission to it. Please ensure the path exists and is accessible..
+        /// </summary>
+        internal static string ScopeSDKPathDoesNotExist {
+            get {
+                return ResourceManager.GetString("ScopeSDKPathDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The script file at path &apos;{0}&apos; does not exist or the current user does not have permission to it. Please ensure the path exists and is accessible..
         /// </summary>
         internal static string ScriptFilePathDoesNotExist {
@@ -520,6 +538,15 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update Data Lake Analytics job &apos;{0}&apos; with the following rules: {1}{2}{3}....
+        /// </summary>
+        internal static string UpdateDataLakeAnalyticsJob {
+            get {
+                return ResourceManager.GetString("UpdateDataLakeAnalyticsJob", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update Data Lake Analytics compute policy &apos;{0}&apos; with the following rules: {1}{2}....
         /// </summary>
         internal static string UpdateDataLakeComputePolicy {
@@ -543,6 +570,24 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Properties {
         internal static string WaitJobTimeoutExceeded {
             get {
                 return ResourceManager.GetString("WaitJobTimeoutExceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yielding Data Lake Analytics job with Id: &apos;{0}&apos; ....
+        /// </summary>
+        internal static string YieldDataLakeAnalyticsJob {
+            get {
+                return ResourceManager.GetString("YieldDataLakeAnalyticsJob", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to yield Data Lake Analytics job with Id: &apos;{0}&apos;?.
+        /// </summary>
+        internal static string YieldingDataLakeAnalyticsJob {
+            get {
+                return ResourceManager.GetString("YieldingDataLakeAnalyticsJob", resourceCulture);
             }
         }
     }

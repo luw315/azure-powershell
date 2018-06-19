@@ -75,8 +75,8 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
             {
                 ConfirmAction(
                     Force.IsPresent,
-                    string.Format(Resources.RemovingDataLakeAnalyticsDataLakeStore, DataLakeStore),
-                    string.Format(Resources.RemoveDataLakeAnalyticsCatalogSecret, DataLakeStore),
+                    string.Format(Properties.Resources.RemovingDataLakeAnalyticsDataLakeStore, DataLakeStore),
+                    string.Format(Properties.Resources.RemoveDataLakeAnalyticsCatalogSecret, DataLakeStore),
                     DataLakeStore,
                     () =>
                     {
@@ -93,8 +93,8 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
             {
                 ConfirmAction(
                     Force.IsPresent,
-                    string.Format(Resources.RemovingDataLakeAnalyticsBlobAccount, Blob),
-                    string.Format(Resources.RemoveDataLakeAnalyticsBlobAccount, Blob),
+                    string.Format(Properties.Resources.RemovingDataLakeAnalyticsBlobAccount, Blob),
+                    string.Format(Properties.Resources.RemoveDataLakeAnalyticsBlobAccount, Blob),
                     Blob,
                     () =>
                     {

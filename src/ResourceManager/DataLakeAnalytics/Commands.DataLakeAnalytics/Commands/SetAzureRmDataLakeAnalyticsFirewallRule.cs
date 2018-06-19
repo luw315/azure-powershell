@@ -56,13 +56,13 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
             var rule = DataLakeAnalyticsClient.GetFirewallRule(ResourceGroupName, Account, Name);
             if (rule == null)
             {
-                throw new PSInvalidOperationException(string.Format(Resources.FirewallRuleNotFound, Name));
+                throw new PSInvalidOperationException(string.Format(Properties.Resources.FirewallRuleNotFound, Name));
             }
 
             var endIp = EndIpAddress ?? rule.EndIpAddress;
             var startIp = StartIpAddress ?? rule.StartIpAddress;
             ConfirmAction(
-                string.Format(Resources.SetDataLakeFirewallRule, Name),
+                string.Format(Properties.Resources.SetDataLakeFirewallRule, Name),
                 Name,
                 () =>
                     WriteObject(new DataLakeAnalyticsFirewallRule(DataLakeAnalyticsClient.AddOrUpdateFirewallRule(

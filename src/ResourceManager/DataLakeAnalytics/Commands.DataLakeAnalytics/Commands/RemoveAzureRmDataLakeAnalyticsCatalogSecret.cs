@@ -44,7 +44,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
         [Parameter(Position = 3, Mandatory = false, HelpMessage = "Do not ask for confirmation.")]
         public SwitchParameter Force { get; set; }
 
-        [Parameter(Position = 4, Mandatory = false)]
+        [Parameter(Mandatory = false)]
         public SwitchParameter PassThru { get; set; }
 
         public override void ExecuteCmdlet()
@@ -53,8 +53,8 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
             {
                 ConfirmAction(
                 Force.IsPresent,
-                string.Format(Resources.RemovingDataLakeAnalyticsCatalogSecrets, DatabaseName),
-                string.Format(Resources.RemoveDataLakeAnalyticsCatalogSecrets, DatabaseName),
+                string.Format(Properties.Resources.RemovingDataLakeAnalyticsCatalogSecrets, DatabaseName),
+                string.Format(Properties.Resources.RemoveDataLakeAnalyticsCatalogSecrets, DatabaseName),
                 DatabaseName,
                     () =>
                     {
@@ -69,8 +69,8 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
             {
                 ConfirmAction(
                     Force.IsPresent,
-                    string.Format(Resources.RemovingDataLakeAnalyticsCatalogSecret, Name),
-                    string.Format(Resources.RemoveDataLakeAnalyticsCatalogSecret, Name),
+                    string.Format(Properties.Resources.RemovingDataLakeAnalyticsCatalogSecret, Name),
+                    string.Format(Properties.Resources.RemoveDataLakeAnalyticsCatalogSecret, Name),
                     Name,
                     () =>
                     {

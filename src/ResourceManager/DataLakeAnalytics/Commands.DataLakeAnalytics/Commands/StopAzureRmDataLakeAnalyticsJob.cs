@@ -46,8 +46,8 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
         {
             ConfirmAction(
                 Force.IsPresent,
-                string.Format(Resources.StoppingDataLakeAnalyticsJob, JobId),
-                string.Format(Resources.StopDataLakeAnalyticsJob, JobId),
+                string.Format(Properties.Resources.StoppingDataLakeAnalyticsJob, JobId),
+                string.Format(Properties.Resources.StopDataLakeAnalyticsJob, JobId),
                 JobId.ToString(),
                 () =>
                 {

@@ -50,7 +50,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
 
             if (!regex.IsMatch(path))
             {
-                throw new CloudException(string.Format(Resources.InvalidCatalogPath, path));
+                throw new CloudException(string.Format(Properties.Resources.InvalidCatalogPath, path));
             }
 
             var splitPath = regex.Match(path);
@@ -111,7 +111,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
             // after trimming and removing external braces, if the string is now empty, it was an invalid path
             if (string.IsNullOrEmpty(path))
             {
-                throw new CloudException(string.Format(Resources.InvalidCatalogPath, fullPath));
+                throw new CloudException(string.Format(Properties.Resources.InvalidCatalogPath, fullPath));
             }
 
             return path;

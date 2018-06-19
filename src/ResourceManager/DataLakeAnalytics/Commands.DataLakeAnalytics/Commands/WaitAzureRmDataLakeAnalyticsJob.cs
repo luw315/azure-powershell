@@ -65,10 +65,10 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
             {
                 if (TimeoutInSeconds > 0 && timeWaitedInSeconds >= TimeoutInSeconds)
                 {
-                    throw new CloudException(string.Format(Resources.WaitJobTimeoutExceeded, JobId, TimeoutInSeconds));
+                    throw new CloudException(string.Format(Properties.Resources.WaitJobTimeoutExceeded, JobId, TimeoutInSeconds));
                 }
 
-                WriteVerboseWithTimestamp(string.Format(Resources.WaitJobState, jobInfo.State));
+                WriteVerboseWithTimestamp(string.Format(Properties.Resources.WaitJobState, jobInfo.State));
                 TestMockSupport.Delay(WaitIntervalInSeconds * 1000);
                 timeWaitedInSeconds += WaitIntervalInSeconds;
                 jobInfo = DataLakeAnalyticsClient.GetJob(Account, JobId);

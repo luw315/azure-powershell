@@ -44,8 +44,8 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
         {
             ConfirmAction(
                 Force.IsPresent,
-                string.Format(Resources.RemovingDataLakeAnalyticsAccount, Name),
-                string.Format(Resources.RemoveDataLakeAnalyticsAccount, Name),
+                string.Format(Properties.Resources.RemovingDataLakeAnalyticsAccount, Name),
+                string.Format(Properties.Resources.RemoveDataLakeAnalyticsAccount, Name),
                 Name,
                 () =>
                 {

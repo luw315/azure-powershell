@@ -62,7 +62,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
             if (!Recurse)
             {
                 ConfirmAction(
-                    string.Format(Resources.RemoveDataLakeAnalyticsCatalogCredential, Name),
+                    string.Format(Properties.Resources.RemoveDataLakeAnalyticsCatalogCredential, Name),
                     Name,
                     () =>
                     {
@@ -81,8 +81,8 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
             {
                 ConfirmAction(
                     Force.IsPresent,
-                    string.Format(Resources.RemovingDataLakeAnalyticsCatalogCredentialCascade, Name),
-                    string.Format(Resources.RemoveDataLakeAnalyticsCatalogCredentialCascade, Name),
+                    string.Format(Properties.Resources.RemovingDataLakeAnalyticsCatalogCredentialCascade, Name),
+                    string.Format(Properties.Resources.RemoveDataLakeAnalyticsCatalogCredentialCascade, Name),
                     Name,
                     () =>
                     {

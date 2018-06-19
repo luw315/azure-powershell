@@ -53,7 +53,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
         public override void ExecuteCmdlet()
         {
             ConfirmAction(
-                string.Format(Resources.AddDataLakeFirewallRule, Name),
+                string.Format(Properties.Resources.AddDataLakeFirewallRule, Name),
                 Name,
                 () =>
                     WriteObject(new DataLakeAnalyticsFirewallRule(DataLakeAnalyticsClient.AddOrUpdateFirewallRule(

@@ -54,8 +54,13 @@ CLRVersion = '4.0'
 RequiredModules = @(@{ModuleName = 'AzureRM.Profile'; ModuleVersion = '5.3.0'; })
 
 # Assemblies that must be loaded prior to importing this module
-RequiredAssemblies = '.\Microsoft.Azure.Management.DataLake.Analytics.dll'
-
+RequiredAssemblies = '.\Microsoft.Azure.Management.DataLake.Analytics.dll',
+					'.\Microsoft.Azure.Management.DataLake.Analytics.Extension.dll',
+					'.\Microsoft.Azure.Management.DataLake.Store.dll',
+					'.\Microsoft.Rest.ClientRuntime.Azure.Authentication.dll',
+					'.\Microsoft.Azure.Management.ResourceManager.dll',
+				    '.\Microsoft.IdentityModel.Clients.ActiveDirectory.dll',
+					'.\Microsoft.Azure.Commands.ResourceManager.Cmdlets.dll'
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
 # ScriptsToProcess = @()
 
@@ -102,7 +107,12 @@ CmdletsToExport = 'Get-AzureRmDataLakeAnalyticsDataSource',
                'Update-AzureRmDataLakeAnalyticsComputePolicy', 
                'Remove-AzureRmDataLakeAnalyticsComputePolicy', 
                'Get-AzureRmDataLakeAnalyticsJobPipeline', 
-               'Get-AzureRmDataLakeAnalyticsJobRecurrence'
+               'Get-AzureRmDataLakeAnalyticsJobRecurrence',
+               'Update-AzureRmDataLakeAnalyticsJob', 
+               'Suspend-AzureRmDataLakeAnalyticsJob', 
+               'Export-AzureRmDataLakeScopeJobDetail',
+               'Invoke-AzureRmDataLakeAnalyticsScopeJob',
+               'Compare-AzureRmDataLakeAnalyticsScopeJob'
 
 # Variables to export from this module
 # VariablesToExport = @()
@@ -122,7 +132,12 @@ AliasesToExport = 'Get-AdlAnalyticsDataSource', 'New-AdlCatalogCredential',
                'New-AdlAnalyticsComputePolicy', 'Get-AdlAnalyticsComputePolicy', 
                'Update-AdlAnalyticsComputePolicy', 
                'Remove-AdlAnalyticsComputePolicy', 'Get-AdlJobPipeline', 
-               'Get-AdlJobRecurrence'
+               'Get-AdlJobRecurrence',
+               'Update-AdlJob',
+               'Suspend-AdlJob',
+               'Export-AdlScopeJob',
+               'Invoke-AdlScopeJob',
+               'Compare-AdlScopeJob'
 
 # DSC resources to export from this module
 # DscResourcesToExport = @()

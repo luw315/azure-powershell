@@ -113,7 +113,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
                 {
                     if (jobDetails.Type != JobType.USql)
                     {
-                        WriteWarningWithTimestamp(string.Format(Resources.AdditionalDataNotSupported, jobDetails.Type));
+                        WriteWarningWithTimestamp(string.Format(Properties.Resources.AdditionalDataNotSupported, jobDetails.Type));
                     }
                     else
                     {
@@ -199,7 +199,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
                     .ToList();
                 if (warnUser)
                 {
-                    WriteWarning(string.Format(Resources.MoreJobsToGetWarning, Top.HasValue ? Top.Value : 500));
+                    WriteWarning(string.Format(Properties.Resources.MoreJobsToGetWarning, Top.HasValue ? Top.Value : 500));
                 }
 
                 WriteObject(list, true);

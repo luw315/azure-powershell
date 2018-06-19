@@ -49,7 +49,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
         public override void ExecuteCmdlet()
         {
             ConfirmAction(
-                string.Format(Resources.RemoveDataLakeAnalyticsFirewallRule, Name),
+                string.Format(Properties.Resources.RemoveDataLakeAnalyticsFirewallRule, Name),
                 Name,
                 () =>
                 {

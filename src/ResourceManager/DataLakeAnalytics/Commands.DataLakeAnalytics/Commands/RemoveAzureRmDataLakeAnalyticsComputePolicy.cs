@@ -52,7 +52,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
         public override void ExecuteCmdlet()
         {
             ConfirmAction(
-                string.Format(Resources.RemoveDataLakeAnalyticsComputePolicy, Name),
+                string.Format(Properties.Resources.RemoveDataLakeAnalyticsComputePolicy, Name),
                 Name,
                 () =>
                 {
