@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 using Microsoft.Azure.Management.DataLake.Analytics;
-using Microsoft.Azure.Management.DataLake.Analytics.Extension;
+using Microsoft.Azure.Management.DataLake.Analytics.Scope;
 
 namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
 {

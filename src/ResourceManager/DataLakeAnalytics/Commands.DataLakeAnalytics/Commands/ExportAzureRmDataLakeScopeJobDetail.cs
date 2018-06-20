@@ -52,14 +52,14 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands
         {
             ThrowErrorIfDirectoryDoesNotExist(TargetFolder);
 
-            var jobinfo = DataLakeAnalyticsClient.JobExClient.BaseClient.Job.Get(Account, JobId);
+            var jobInfo = DataLakeAnalyticsClient.GetJob(Account, JobId);
 
             // Create the folder that will contain the downloaded job files
             string root_target_folder = Path.Combine(TargetFolder, JobId.ToString("N"));
 
             CreateDirectoryIfNeeded(root_target_folder);
 
-            var scopeJobProperties = jobinfo.Properties as ScopeJobProperties;
+            var scopeJobProperties = jobInfo.Properties as ScopeJobProperties;
             if (scopeJobProperties != null)
             {
                 foreach (var resource in scopeJobProperties.Resources)
@@ -81,7 +81,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands
                 }
             }
 
-            var uSqlJobProperties = jobinfo.Properties as USqlJobProperties;
+            var uSqlJobProperties = jobInfo.Properties as USqlJobProperties;
             if (uSqlJobProperties != null)
             {
 
@@ -105,9 +105,9 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands
             }
 
             // Write out the script
-            var scriptPath = Path.Combine(root_target_folder, jobinfo.Name + ".script");
+            var scriptPath = Path.Combine(root_target_folder, jobInfo.JobId.ToString() + ".script");
             WriteVerbose(string.Format("Downloading Script {0}", scriptPath));
-            File.WriteAllText(scriptPath, jobinfo.Properties.Script);
+            File.WriteAllText(scriptPath, jobInfo.Properties.Script);
             WriteVerbose("Compelet.");
         }
     }

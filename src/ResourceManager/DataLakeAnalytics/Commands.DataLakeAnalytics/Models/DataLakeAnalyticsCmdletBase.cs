@@ -23,7 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Hyak.Common;
-using Microsoft.Azure.Management.DataLake.Analytics.Extension;
+using Microsoft.Azure.Management.DataLake.Analytics.Scope;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using Microsoft.Rest.Azure.Authentication;
 using Microsoft.Rest;

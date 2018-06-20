@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{021DA6DB-34B3-4B63-81D3-28FDE66C2E78}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Microsoft.Azure.Management.DataLake.Analytics.Extension</RootNamespace>
-    <AssemblyName>Microsoft.Azure.Management.DataLake.Analytics.Extension</AssemblyName>
+    <RootNamespace>Microsoft.Azure.Management.DataLake.Analytics.Scope</RootNamespace>
+    <AssemblyName>Microsoft.Azure.Management.DataLake.Analytics.Scope</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -45,30 +45,30 @@
     <Reference Include="System.Xml" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Azure.Management.DataLake.Analytics, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.Azure.Management.DataLake.Analytics.3.2.3-preview\lib\net452\Microsoft.Azure.Management.DataLake.Analytics.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Azure.Management.DataLake.Store, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.Azure.Management.DataLake.Store.2.3.0-preview\lib\net452\Microsoft.Azure.Management.DataLake.Store.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.Rest.ClientRuntime.2.3.11\lib\net452\Microsoft.Rest.ClientRuntime.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Rest.ClientRuntime.Azure, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\Microsoft.Rest.ClientRuntime.Azure.3.3.12\lib\net452\Microsoft.Rest.ClientRuntime.Azure.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataLakeAnalyticsJobManagementExtensionClient.cs" />
+    <Compile Include="DataLakeAnalyticsScopeJobClient.cs" />
     <Compile Include="ExtensionOperations.cs" />
     <Compile Include="ExtensionOperationsExtensions.cs" />
-    <Compile Include="IDataLakeAnalyticsJobManagementExtensionClient.cs" />
+    <Compile Include="IDataLakeAnalyticsScopeJobClient.cs" />
     <Compile Include="IExtensionOperations.cs" />
     <Compile Include="Models\CreateScopeJobExtensionParameters.cs" />
     <Compile Include="Models\JobDiffInfo.cs" />
@@ -81,6 +81,5 @@
     <Compile Include="Utils\JobPropertyHelper.cs" />
     <Compile Include="Utils\SafeXml.cs" />
   </ItemGroup>
-  <!--<Import Condition="Exists('$(NuProjPath)\NuProj.Common.targets') AND $(MSBuildProjectExtension) == '.csproj'" Project="$(NuProjPath)\NuProj.Common.targets" />-->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

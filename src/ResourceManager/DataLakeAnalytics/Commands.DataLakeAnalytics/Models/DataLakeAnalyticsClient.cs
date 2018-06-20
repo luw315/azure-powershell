@@ -25,7 +25,7 @@ using System.Linq;
 using System.Management.Automation;
 using System.Net;
 using Microsoft.Azure.Management.DataLake.Analytics;
-using Microsoft.Azure.Management.DataLake.Analytics.Extension;
+using Microsoft.Azure.Management.DataLake.Analytics.Scope;
 using Microsoft.Azure.Management.DataLake.Store;
 using Microsoft.Azure.Commands.ResourceManager.Cmdlets.Components;
 

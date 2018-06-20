@@ -1,8 +1,8 @@
-﻿namespace Microsoft.Azure.Management.DataLake.Analytics.Extension
+﻿namespace Microsoft.Azure.Management.DataLake.Analytics.Scope
 {
     using System.Net.Http;
     using System.Collections.Generic;
-    using Microsoft.Azure.Management.DataLake.Analytics.Extension.Utils;
+    using Microsoft.Azure.Management.DataLake.Analytics.Scope.Utils;
     using Microsoft.Azure.Management.DataLake.Analytics.Models;
     using Microsoft.Rest;
     using Microsoft.Rest.Azure;

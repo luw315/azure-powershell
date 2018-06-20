@@ -1,7 +1,7 @@
 ﻿
 
 
-namespace Microsoft.Azure.Management.DataLake.Analytics.Extension
+namespace Microsoft.Azure.Management.DataLake.Analytics.Scope
 {
     using Microsoft.Rest;
     using Newtonsoft.Json;

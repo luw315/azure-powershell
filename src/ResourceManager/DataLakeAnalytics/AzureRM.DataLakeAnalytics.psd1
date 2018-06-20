@@ -55,7 +55,7 @@ RequiredModules = @(@{ModuleName = 'AzureRM.Profile'; ModuleVersion = '5.3.0'; }
 
 # Assemblies that must be loaded prior to importing this module
 RequiredAssemblies = '.\Microsoft.Azure.Management.DataLake.Analytics.dll',
-					'.\Microsoft.Azure.Management.DataLake.Analytics.Extension.dll',
+					'.\Microsoft.Azure.Management.DataLake.Analytics.Scope.dll',
 					'.\Microsoft.Azure.Management.DataLake.Store.dll',
 					'.\Microsoft.Rest.ClientRuntime.Azure.Authentication.dll',
 					'.\Microsoft.Azure.Management.ResourceManager.dll',

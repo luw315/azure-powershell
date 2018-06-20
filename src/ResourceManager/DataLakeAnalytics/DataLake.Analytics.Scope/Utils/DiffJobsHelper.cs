@@ -1,9 +1,9 @@
-﻿namespace Microsoft.Azure.Management.DataLake.Analytics.Extension.Utils
+﻿namespace Microsoft.Azure.Management.DataLake.Analytics.Scope.Utils
 {
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.Azure.Management.DataLake.Analytics.Extension.Models;
+    using Microsoft.Azure.Management.DataLake.Analytics.Scope.Models;
     using Microsoft.Azure.Management.DataLake.Analytics.Models;
     using Microsoft.Azure.Management.DataLake.Store;
 
