@@ -181,5 +181,20 @@
                     .GetAwaiter()
                     .GetResult();
         }
+
+        /// <summary>
+        /// GetDataRoot
+        /// </summary>
+        /// <param name="accountName">DataLake Analytics account name</param>
+        /// <param name="resourceGroup">DataLake Analytics account resourceGroup</param>
+        /// <param name="dataLakeAnalyticsAccountManagementClient">dataLakeAnalyticsAccountManagementClient</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Data root. For example: adl://sandboxadl.azuredatalakestore.net/</returns>
+        public static string GetDataRoot(this IExtensionOperations operations, string accountName, string resourceGroup,
+            IDataLakeAnalyticsAccountManagementClient dataLakeAnalyticsAccountManagementClient,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return operations.GetDataRootAsync(accountName, resourceGroup, dataLakeAnalyticsAccountManagementClient, cancellationToken).GetAwaiter().GetResult();
+        }
     }
 }

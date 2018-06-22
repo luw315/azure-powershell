@@ -47,5 +47,17 @@
             IDataLakeStoreFileSystemManagementClient dataLakeStoreFileSystemManagementClient,
             IDataLakeAnalyticsAccountManagementClient dataLakeAnalyticsAccountManagementClient,
             CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// GetDataRoot
+        /// </summary>
+        /// <param name="accountName">DataLake Analytics account name</param>
+        /// <param name="resourceGroup">DataLake Analytics account resourceGroup</param>
+        /// <param name="dataLakeAnalyticsAccountManagementClient">dataLakeAnalyticsAccountManagementClient</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Data root. For example: adl://sandboxadl.azuredatalakestore.net/</returns>
+        Task<string> GetDataRootAsync(string accountName, string resourceGroup,
+            IDataLakeAnalyticsAccountManagementClient dataLakeAnalyticsAccountManagementClient,
+            CancellationToken cancellationToken = default(CancellationToken));
     }
 }

@@ -451,6 +451,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
             HelpMessage =
                 "Disable bonus tokens for execution"
             )]
+        [Alias("DisableBonusTokens")]
         public SwitchParameter DisableBonusToken { get; set; }
 
         [Parameter(ValueFromPipelineByPropertyName = true, ParameterSetName = ScopeJobWithScriptPath,

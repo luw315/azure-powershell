@@ -157,7 +157,7 @@
             }
             if (string.IsNullOrWhiteSpace(resourceGroup))
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "accountName");
+                throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroup");
             }
             if (leftJob == null || leftJob == Guid.Empty)
             {
@@ -188,6 +188,38 @@
                 DiffJobsHelper.DoAsync(accountName, resourceGroup, leftJob, rightJob,
                     dataLakeStoreFileSystemManagementClient, dataLakeAnalyticsAccountManagementClient, this.Client.BaseClient,
                     cancellationToken).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// GetDataRoot
+        /// </summary>
+        /// <param name="accountName">DataLake Analytics account name</param>
+        /// <param name="resourceGroup">DataLake Analytics account resourceGroup</param>
+        /// <param name="dataLakeAnalyticsAccountManagementClient">dataLakeAnalyticsAccountManagementClient</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns>Data root. For example: adl://sandboxadl.azuredatalakestore.net/</returns>
+        public async Task<string> GetDataRootAsync(string accountName, string resourceGroup,
+            IDataLakeAnalyticsAccountManagementClient dataLakeAnalyticsAccountManagementClient,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            if (string.IsNullOrWhiteSpace(accountName))
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "accountName");
+            }
+
+            if (string.IsNullOrWhiteSpace(resourceGroup))
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroup");
+            }
+
+            if (dataLakeAnalyticsAccountManagementClient == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "dataLakeAnalyticsAccountManagementClient");
+            }
+
+            DataLakeAnalyticsAccount account = await dataLakeAnalyticsAccountManagementClient.Account.GetAsync(resourceGroup, accountName, cancellationToken).ConfigureAwait(false);
+            DataLakeStoreAccountInfo sa = account.DataLakeStoreAccounts.First(s => s.Name == account.DefaultDataLakeStoreAccount);
+            return string.Format("adl://{0}.{1}/", sa.Name, sa.Suffix);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope
 {
     public static class ScopeHelpers
     {
-        private static bool ExtractJobResources(string scriptPath, string tokenFile, SubmitAzureDataLakeAnalyticsJob command, string resourceGroup, out string newScriptPath, out string nebulaCommandLineArgs, out List<string> clusterResources, out List<string> localResources)
+        private static bool ExtractJobResources(string scriptPath, string tokenFile, SubmitAzureDataLakeAnalyticsJob command, string resourceGroup, out string newScriptPath, out List<string> clusterResources, out List<string> localResources)
         {
             StringBuilder extractCommands = new StringBuilder();
             extractCommands.Append("extractjobresources -on adl ");
@@ -40,7 +40,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope
             {
                 foreach (KeyValuePair<string, string> p in parameters)
                 {
-                    extractCommands.Append(string.Format("-params {0}=\\\"{1}\\\" ", p.Key, p.Value));
+                    extractCommands.Append(string.Format("-params {0}=\"{1}\" ", p.Key, p.Value));
                 }
             }
 
@@ -60,7 +60,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope
 
             if (!string.IsNullOrEmpty(command.Account))
             {
-                extractCommands.Append("-vc " + GetDataRoot(command, resourceGroup) + " ");
+                extractCommands.Append("-vc " + command.DataLakeAnalyticsClient.GetDataRoot(resourceGroup, command.Account) + " ");
             }
 
             extractCommands.Append("-SecureInfoFile " + tokenFile + " ");
@@ -92,31 +92,22 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope
             string output = process.StandardOutput.ReadToEnd();
             command.WriteVerbose(output);
 
-            Regex reg = new Regex(@"(?s)Cluster resources:\s*(.*)\s*Local resources:\s*(.*)\s*Nebula command line args:\s*([^\r\n]*)\s*Script path:\s*([^\r\n]*)\s*", RegexOptions.Compiled | RegexOptions.Multiline);
+            Regex reg = new Regex(@"(?s)Cluster resources:\s*(.*)\s*Local resources:\s*(.*)\s*Script path:\s*([^\r\n]*)\s*", RegexOptions.Compiled | RegexOptions.Multiline);
             Match result = reg.Match(output);
             if (result.Success)
             {
                 clusterResources = result.Groups[1].Value.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
                 localResources = result.Groups[2].Value.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).ToList();
-                nebulaCommandLineArgs = result.Groups[3].Value;
-                newScriptPath = result.Groups[4].Value;
+                newScriptPath = result.Groups[3].Value;
                 return true;
             }
             else
             {
                 newScriptPath = null;
-                nebulaCommandLineArgs = null;
                 clusterResources = null;
                 localResources = null;
                 return false;
             }
-        }
-
-        public static string GetDataRoot(SubmitAzureDataLakeAnalyticsJob command, string resourceGroup)
-        {
-            DataLakeAnalyticsAccount account = command.DataLakeAnalyticsClient.GetAccount(resourceGroup, command.Account);
-            DataLakeStoreAccountInfo sa = account.DataLakeStoreAccounts.First(s => s.Name == account.DefaultDataLakeStoreAccount);
-            return string.Format("adl://{0}.{1}/", sa.Name, sa.Suffix);
         }
 
         internal static string GetScopeExePath(this DataLakeAnalyticsCmdletBase command, string scopeSdkPath)
@@ -152,25 +143,24 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope
 
         public static JobInformation Submit(SubmitAzureDataLakeAnalyticsJob command, string scriptPath)
         {
-            string final_script_filename = scriptPath;
+            string scriptWithCodeBehindPath = scriptPath;
 
             // Handle Code-Behind
-            string code_behind_filename = string.Format("{0}{1}", command.ScriptPath, ".cs");
-            bool requires_code_behind = File.Exists(code_behind_filename);
-            var str = string.Format("Code-behind: {0}.", requires_code_behind);
+            string codeBehindFilename = string.Format("{0}{1}", command.ScriptPath, ".cs");
+            bool isCodeBehindExist = File.Exists(codeBehindFilename);
+            var str = string.Format("Code-behind: {0}.", isCodeBehindExist);
             command.WriteVerbose(str);
+            string codeBehindSuffix = "_w_code_behind";
 
-            string gen_script_suffix = "_w_code_behind";
-
-            if (requires_code_behind)
+            if (isCodeBehindExist)
             {
-                final_script_filename = string.Format("{0}{1}", command.ScriptPath, gen_script_suffix);
+                scriptWithCodeBehindPath = string.Format("{0}{1}", command.ScriptPath, codeBehindSuffix);
 
-                if (File.Exists(final_script_filename))
+                if (File.Exists(scriptWithCodeBehindPath))
                 {
                     command.WriteVerbose(string.Format("Deleting previous merged code behind file: {0}",
-                        final_script_filename));
-                    File.Delete(final_script_filename);
+                        scriptWithCodeBehindPath));
+                    File.Delete(scriptWithCodeBehindPath);
                 }
 
                 var sb = new System.Text.StringBuilder();
@@ -182,11 +172,11 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope
                 // Add the code behind text
                 sb.AppendLine("");
                 sb.AppendLine("#CS");
-                string cs_code = File.ReadAllText(code_behind_filename);
+                string cs_code = File.ReadAllText(codeBehindFilename);
                 sb.AppendLine(cs_code);
                 sb.AppendLine("#ENDCS");
 
-                File.WriteAllText(final_script_filename, sb.ToString());
+                File.WriteAllText(scriptWithCodeBehindPath, sb.ToString());
 
                 command.WriteVerbose("Created merged script with codebehind");
             }
@@ -208,12 +198,11 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope
             try
             {
                 string newScriptPath;
-                string nebulaCommandLineArgs;
                 List<string> clusterResources;
                 List<string> localResources;
                 string resourceGroup = command.ResourceGroup ?? command.DataLakeAnalyticsClient.GetResourceGroupByAccountName(command.Account);
 
-                if (ExtractJobResources(final_script_filename, tokenFile, command, resourceGroup, out newScriptPath, out nebulaCommandLineArgs, out clusterResources, out localResources))
+                if (ExtractJobResources(scriptWithCodeBehindPath, tokenFile, command, resourceGroup, out newScriptPath, out clusterResources, out localResources))
                 {
                     JobInformation jobinfo = DoSubmit(clusterResources, localResources, newScriptPath, command, resourceGroup);
                     command.WriteVerbose(jobinfo == null ? "Submit returned NULL JobInfoObject" : "Finished Submitting Job");
@@ -225,18 +214,18 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope
             finally
             {
                 command.WriteVerbose("Now in Finally Clause after calling Submit()");
-                if (requires_code_behind)
+                if (isCodeBehindExist)
                 {
-                    if (final_script_filename != command.ScriptPath && final_script_filename.Contains(gen_script_suffix))
+                    if (scriptWithCodeBehindPath != command.ScriptPath && scriptWithCodeBehindPath.Contains(codeBehindSuffix))
                     {
-                        command.WriteVerbose(string.Format("Deleting {0}", final_script_filename));
+                        command.WriteVerbose(string.Format("Deleting {0}", scriptWithCodeBehindPath));
                         try
                         {
-                            File.Delete(final_script_filename);
+                            File.Delete(scriptWithCodeBehindPath);
                         }
                         catch (Exception e)
                         {
-                            command.WriteError(new ErrorRecord(e, "Delete token file failed.", ErrorCategory.WriteError, final_script_filename));
+                            command.WriteError(new ErrorRecord(e, "Delete token file failed.", ErrorCategory.WriteError, scriptWithCodeBehindPath));
                         }
                     }
                 }

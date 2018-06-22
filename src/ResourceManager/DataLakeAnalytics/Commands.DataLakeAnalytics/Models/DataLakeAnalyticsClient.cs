@@ -247,6 +247,16 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
             return _accountClient.Account.Get(resourceGroupName, accountName);
         }
 
+        public string GetDataRoot(string resourceGroupName, string accountName)
+        {
+            if (string.IsNullOrEmpty(resourceGroupName))
+            {
+                resourceGroupName = GetResourceGroupByAccountName(accountName);
+            }
+
+            return JobExClient.Extension.GetDataRoot(accountName, resourceGroupName, _accountClient);
+        }
+
         public List<DataLakeAnalyticsAccountBasic> ListAccounts(string resourceGroupName, string filter, int? top, int? skip)
         {
             var parameters = new ODataQuery<DataLakeAnalyticsAccountBasic>

@@ -271,7 +271,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
             }
 
             // the value does not begin or end with a quote so add it
-            string new_val = string.Format("\"{0}\"", value.Replace("\"", "\\\""));
+            string new_val = value.Replace("\"", "\\\"");
             this.WriteVerbose(string.Format("Value for {0} quoted from \"{1}\" to \"{2}\"", name, value, new_val));
             return new_val;
         }
