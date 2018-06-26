@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Azure.Management.DataLake.Analytics.Scope.Utils
+﻿namespace Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope.Utils
 {
     using System.IO;
     using System.Xml;

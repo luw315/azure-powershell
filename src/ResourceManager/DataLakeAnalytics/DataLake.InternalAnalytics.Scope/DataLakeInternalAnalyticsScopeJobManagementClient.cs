@@ -1,18 +1,19 @@
-﻿namespace Microsoft.Azure.Management.DataLake.Analytics.Scope
+﻿namespace Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope
 {
     using System.Net.Http;
     using System.Collections.Generic;
-    using Microsoft.Azure.Management.DataLake.Analytics.Scope.Utils;
+    using Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope.Utils;
     using Microsoft.Azure.Management.DataLake.Analytics.Models;
     using Microsoft.Rest;
     using Microsoft.Rest.Azure;
     using Microsoft.Rest.Serialization;
     using Newtonsoft.Json;
+    using Analytics;
 
     /// <summary>
     /// Creates a Data Lake Store filesystem management extension client.
     /// </summary>
-    public sealed class DataLakeAnalyticsJobManagementExtensionClient : ServiceClient<DataLakeAnalyticsJobManagementExtensionClient>, IDataLakeAnalyticsJobManagementExtensionClient, IAzureClient
+    public sealed class DataLakeInternalAnalyticsScopeJobManagementClient : ServiceClient<DataLakeInternalAnalyticsScopeJobManagementClient>, IDataLakeInternalAnalyticsScopeJobManagementClient, IAzureClient
     {
         /// <summary>
         /// The base client
@@ -87,7 +88,7 @@
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        public DataLakeAnalyticsJobManagementExtensionClient(ServiceClientCredentials credentials,
+        public DataLakeInternalAnalyticsScopeJobManagementClient(ServiceClientCredentials credentials,
             string userAgentAssemblyVersion = "",
             string adlaJobDnsSuffix = DataLakeAnalyticsExtensionConstants.DefaultAdlaDnsSuffix,
             params DelegatingHandler[] handlers)
@@ -116,7 +117,7 @@
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        public DataLakeAnalyticsJobManagementExtensionClient(ServiceClientCredentials credentials,
+        public DataLakeInternalAnalyticsScopeJobManagementClient(ServiceClientCredentials credentials,
             HttpClientHandler rootHandler, string userAgentAssemblyVersion = "",
             string adlaJobDnsSuffix = DataLakeAnalyticsExtensionConstants.DefaultAdlaDnsSuffix,
             params DelegatingHandler[] handlers)
@@ -133,7 +134,7 @@
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        private DataLakeAnalyticsJobManagementExtensionClient(params DelegatingHandler[] handlers) : base(handlers)
+        private DataLakeInternalAnalyticsScopeJobManagementClient(params DelegatingHandler[] handlers) : base(handlers)
         {
             Initialize();
         }
@@ -147,7 +148,7 @@
         /// <param name='handlers'>
         /// Optional. The delegating handlers to add to the http client pipeline.
         /// </param>
-        private DataLakeAnalyticsJobManagementExtensionClient(HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : base(rootHandler, handlers)
+        private DataLakeInternalAnalyticsScopeJobManagementClient(HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : base(rootHandler, handlers)
         {
             Initialize();
         }
@@ -164,7 +165,7 @@
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        internal DataLakeAnalyticsJobManagementExtensionClient(ServiceClientCredentials credentials, params DelegatingHandler[] handlers) : this(handlers)
+        internal DataLakeInternalAnalyticsScopeJobManagementClient(ServiceClientCredentials credentials, params DelegatingHandler[] handlers) : this(handlers)
         {
             if (credentials == null)
             {
@@ -192,7 +193,7 @@
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        internal DataLakeAnalyticsJobManagementExtensionClient(ServiceClientCredentials credentials, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
+        internal DataLakeInternalAnalyticsScopeJobManagementClient(ServiceClientCredentials credentials, HttpClientHandler rootHandler, params DelegatingHandler[] handlers) : this(rootHandler, handlers)
         {
             if (credentials == null)
             {

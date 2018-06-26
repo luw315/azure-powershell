@@ -1,6 +1,6 @@
 ﻿
 
-namespace Microsoft.Azure.Management.DataLake.Analytics.Scope.Utils
+namespace Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope.Utils
 {
     using System;
     using System.Collections.Generic;

@@ -1,16 +1,17 @@
-﻿namespace Microsoft.Azure.Management.DataLake.Analytics.Scope
+﻿namespace Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.Azure.Management.DataLake.Analytics.Scope.Models;
-    using Microsoft.Azure.Management.DataLake.Analytics.Scope.Utils;
+    using Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope.Models;
+    using Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope.Utils;
     using Microsoft.Azure.Management.DataLake.Analytics.Models;
     using Microsoft.Azure.Management.DataLake.Store;
     using Microsoft.Rest;
     using Microsoft.Rest.Azure;
+    using Analytics;
 
     internal class ExtensionOperations : IExtensionOperations
     {
@@ -23,7 +24,7 @@
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        internal ExtensionOperations(DataLakeAnalyticsJobManagementExtensionClient client)
+        internal ExtensionOperations(DataLakeInternalAnalyticsScopeJobManagementClient client)
         {
             if (client == null)
             {
@@ -35,7 +36,7 @@
         /// <summary>
         /// Gets a reference to the DataLakeAnalyticsJobManagementExtensionClient
         /// </summary>
-        private DataLakeAnalyticsJobManagementExtensionClient Client { get; set; }
+        private DataLakeInternalAnalyticsScopeJobManagementClient Client { get; set; }
 
 
         /// <summary>

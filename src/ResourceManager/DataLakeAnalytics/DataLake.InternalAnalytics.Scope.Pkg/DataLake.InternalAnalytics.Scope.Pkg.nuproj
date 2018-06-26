@@ -21,13 +21,13 @@
   </PropertyGroup>
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
-    <Id>Microsoft.Azure.Management.DataLake.Analytics.Scope</Id>
+    <Id>Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope</Id>
     <Version>0.0.1-preview</Version>
-    <Title>Microsoft.Azure.Management.DataLake.Analytics.Scope</Title>
+    <Title>Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope</Title>
     <Authors>luw</Authors>
     <Owners>luw</Owners>
-    <Summary>Microsoft.Azure.Management.DataLake.Analytics.Scope</Summary>
-    <Description>Microsoft.Azure.Management.DataLake.Analytics.Scope</Description>
+    <Summary>Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope</Summary>
+    <Description>Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope</Description>
     <Copyright>Copyright (C) Microsoft Corporation. All rights reserved.</Copyright>
     <DevelopmentDependency>false</DevelopmentDependency>
     <GenerateSymbolPackage>true</GenerateSymbolPackage>
@@ -62,7 +62,7 @@
     </Dependency>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataLake.Analytics.Scope\DataLake.Analytics.Scope.csproj" />
+    <ProjectReference Include="..\DataLake.InternalAnalytics.Scope\DataLake.InternalAnalytics.Scope.csproj" />
   </ItemGroup>
   <Import Project="$(NuProjPath)\NuProj.targets" />
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Azure.Management.DataLake.Analytics.Scope.Models
+﻿namespace Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope.Models
 {
     using System.Collections.Specialized;
     using Microsoft.Azure.Management.DataLake.Analytics.Models;

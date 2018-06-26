@@ -1,8 +1,8 @@
 ﻿using Hyak.Common;
 using Microsoft.Azure.Commands.Common.Authentication.Abstractions;
 using Microsoft.Azure.Commands.DataLakeAnalytics.Models;
-using Microsoft.Azure.Management.DataLake.Analytics.Scope;
-using Microsoft.Azure.Management.DataLake.Analytics.Scope.Models;
+using Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope;
+using Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope.Models;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using System;
 using System.Collections.Generic;

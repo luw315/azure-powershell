@@ -1,12 +1,12 @@
 ﻿
 
 
-namespace Microsoft.Azure.Management.DataLake.Analytics.Scope
+namespace Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope
 {
     using Microsoft.Rest;
     using Newtonsoft.Json;
 
-    public interface IDataLakeAnalyticsJobManagementExtensionClient
+    public interface IDataLakeInternalAnalyticsScopeJobManagementClient
     {
         /// <summary>
         /// The base URI of the service.

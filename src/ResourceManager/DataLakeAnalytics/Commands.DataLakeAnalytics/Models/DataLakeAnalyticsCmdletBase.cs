@@ -23,7 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Hyak.Common;
-using Microsoft.Azure.Management.DataLake.Analytics.Scope;
+using Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope;
 using Microsoft.Azure.Management.DataLake.Analytics.Models;
 using Microsoft.Rest.Azure.Authentication;
 using Microsoft.Rest;
@@ -144,7 +144,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
             return message.Headers.Authorization.Parameter;
         }
 
-        internal static DataLakeAnalyticsJobManagementExtensionClient CreateAdlaExtensionClient(IAzureContext context, string endpoint, bool parameterizedBaseUri = false)
+        internal static DataLakeInternalAnalyticsScopeJobManagementClient CreateAdlaExtensionClient(IAzureContext context, string endpoint, bool parameterizedBaseUri = false)
         {
             if (context == null)
             {
@@ -156,12 +156,12 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
             var endpointRul = context.Environment.GetEndpoint(endpoint);
             if (endpointRul != null)
             {
-                return new DataLakeAnalyticsJobManagementExtensionClient(creds,
+                return new DataLakeInternalAnalyticsScopeJobManagementClient(creds,
                     adlaJobDnsSuffix: endpointRul);
             }
             else
             {
-                return new DataLakeAnalyticsJobManagementExtensionClient(creds);
+                return new DataLakeInternalAnalyticsScopeJobManagementClient(creds);
             }
 
         }

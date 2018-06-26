@@ -1,11 +1,12 @@
-﻿namespace Microsoft.Azure.Management.DataLake.Analytics.Scope.Utils
+﻿namespace Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope.Utils
 {
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.Azure.Management.DataLake.Analytics.Scope.Models;
+    using Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope.Models;
     using Microsoft.Azure.Management.DataLake.Analytics.Models;
     using Microsoft.Azure.Management.DataLake.Store;
+    using Analytics;
 
     internal static class DiffJobsHelper
     {

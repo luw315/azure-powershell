@@ -25,7 +25,7 @@ using System.Linq;
 using System.Management.Automation;
 using System.Net;
 using Microsoft.Azure.Management.DataLake.Analytics;
-using Microsoft.Azure.Management.DataLake.Analytics.Scope;
+using Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope;
 using Microsoft.Azure.Management.DataLake.Store;
 using Microsoft.Azure.Commands.ResourceManager.Cmdlets.Components;
 
@@ -36,7 +36,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
         private readonly DataLakeAnalyticsAccountManagementClient _accountClient;
         private readonly DataLakeAnalyticsCatalogManagementClient _catalogClient;
         private readonly DataLakeAnalyticsJobManagementClient _jobClient;
-        internal readonly DataLakeAnalyticsJobManagementExtensionClient JobExClient;
+        internal readonly DataLakeInternalAnalyticsScopeJobManagementClient JobExClient;
         internal readonly DataLakeStoreFileSystemManagementClient FsClient;
         private readonly Guid _subscriptionId;
         private static Queue<Guid> jobIdQueue;

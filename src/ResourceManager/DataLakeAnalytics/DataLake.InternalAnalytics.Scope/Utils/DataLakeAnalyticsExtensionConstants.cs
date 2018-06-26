@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Azure.Management.DataLake.Analytics.Scope.Utils
+﻿namespace Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope.Utils
 {
     internal static class DataLakeAnalyticsExtensionConstants
     {

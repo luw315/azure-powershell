@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Provides Microsoft Azure Data Lake Analytics Scope management operations.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Microsoft.Azure.Management.DataLake.Analytics.Scope")]
+[assembly: AssemblyProduct("Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -1,13 +1,14 @@
-﻿namespace Microsoft.Azure.Management.DataLake.Analytics.Scope
+﻿namespace Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope
 {
     using System;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Azure.Management.DataLake.Analytics.Models;
-    using Microsoft.Azure.Management.DataLake.Analytics.Scope.Models;
+    using Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope.Models;
     using Microsoft.Azure.Management.DataLake.Store;
     using Microsoft.Rest.Azure;
+    using Analytics;
 
     public interface IExtensionOperations
     {

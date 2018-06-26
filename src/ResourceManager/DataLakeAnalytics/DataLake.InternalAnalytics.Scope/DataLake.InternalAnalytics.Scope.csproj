@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{021DA6DB-34B3-4B63-81D3-28FDE66C2E78}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Microsoft.Azure.Management.DataLake.Analytics.Scope</RootNamespace>
-    <AssemblyName>Microsoft.Azure.Management.DataLake.Analytics.Scope</AssemblyName>
+    <RootNamespace>Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope</RootNamespace>
+    <AssemblyName>Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -65,10 +65,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataLakeAnalyticsScopeJobClient.cs" />
+    <Compile Include="DataLakeInternalAnalyticsScopeJobManagementClient.cs" />
     <Compile Include="ExtensionOperations.cs" />
     <Compile Include="ExtensionOperationsExtensions.cs" />
-    <Compile Include="IDataLakeAnalyticsScopeJobClient.cs" />
+    <Compile Include="IDataLakeInternalAnalyticsScopeJobManagementClient.cs" />
     <Compile Include="IExtensionOperations.cs" />
     <Compile Include="Models\CreateScopeJobExtensionParameters.cs" />
     <Compile Include="Models\JobDiffInfo.cs" />

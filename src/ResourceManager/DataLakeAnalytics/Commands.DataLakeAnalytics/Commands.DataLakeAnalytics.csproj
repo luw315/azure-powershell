@@ -159,9 +159,9 @@
       <Project>{8058D403-06E3-4BED-8924-D166CE303961}</Project>
       <Name>Commands.Resources.Rest</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataLake.Analytics.Scope\DataLake.Analytics.Scope.csproj">
+    <ProjectReference Include="..\DataLake.InternalAnalytics.Scope\DataLake.InternalAnalytics.Scope.csproj">
       <Project>{021da6db-34b3-4b63-81d3-28fde66c2e78}</Project>
-      <Name>DataLake.Analytics.Scope</Name>
+      <Name>DataLake.InternalAnalytics.Scope</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 using Microsoft.Azure.Management.DataLake.Analytics;
-using Microsoft.Azure.Management.DataLake.Analytics.Scope;
+using Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope;
 
 namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
 {
@@ -35,7 +35,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Models
         /// <summary>
         /// DataLakeAnalyticsJobManagementExtensionClient
         /// </summary>
-        public DataLakeAnalyticsJobManagementExtensionClient JobExClient { get; set; }
+        public DataLakeInternalAnalyticsScopeJobManagementClient JobExClient { get; set; }
 
         /// <summary>
         /// DataLakeAnalyticsAccountManagementClient

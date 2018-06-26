@@ -46,9 +46,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands.Common.WebSites", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commands.DataLakeStore", "..\DataLakeStore\Commands.DataLakeStore\Commands.DataLakeStore.csproj", "{8AAB43E6-E8F6-4F91-AF8A-6A63CD78EF1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLake.Analytics.Scope", "DataLake.Analytics.Scope\DataLake.Analytics.Scope.csproj", "{021DA6DB-34B3-4B63-81D3-28FDE66C2E78}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLake.InternalAnalytics.Scope", "DataLake.InternalAnalytics.Scope\DataLake.InternalAnalytics.Scope.csproj", "{021DA6DB-34B3-4B63-81D3-28FDE66C2E78}"
 EndProject
-Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "DataLake.Analytics.Scope.Pkg", "DataLake.Analytics.Scope.Pkg\DataLake.Analytics.Scope.Pkg.nuproj", "{E5144E3D-DF37-4243-B2ED-6D65C1F4823D}"
+Project("{FF286327-C783-4F7A-AB73-9BCBAD0D4460}") = "DataLake.InternalAnalytics.Scope.Pkg", "DataLake.InternalAnalytics.Scope.Pkg\DataLake.InternalAnalytics.Scope.Pkg.nuproj", "{E5144E3D-DF37-4243-B2ED-6D65C1F4823D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

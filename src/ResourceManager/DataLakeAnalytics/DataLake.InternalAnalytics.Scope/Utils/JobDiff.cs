@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Azure.Management.DataLake.Analytics.Scope.Utils
+﻿namespace Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope.Utils
 {
     using System;
     using System.Collections;
@@ -6,7 +6,7 @@
     using System.Globalization;
     using System.IO;
     using System.Text;
-    using Microsoft.Azure.Management.DataLake.Analytics.Scope.Models;
+    using Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope.Models;
     using Microsoft.Azure.Management.DataLake.Analytics.Models;
 
     internal enum PropCompareResult
