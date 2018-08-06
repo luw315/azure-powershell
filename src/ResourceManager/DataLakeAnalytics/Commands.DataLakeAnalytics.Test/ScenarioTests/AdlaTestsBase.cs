@@ -58,6 +58,8 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Test.ScenarioTests
 
         public DataLakeStoreAccountManagementClient DataLakeStoreAccountManagementClient { get; private set; }
 
+        public DataLakeStoreFileSystemManagementClient DataLakeStoreFileSystemManagementClient { get; private set; }
+
         public DataLakeAnalyticsAccountManagementClient DataLakeAnalyticsAccountManagementClient { get; private set; }
 
         public DataLakeAnalyticsJobManagementClient DataLakeAnalyticsJobManagementClient { get; private set; }
@@ -193,6 +195,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Test.ScenarioTests
             ResourceManagementClient = GetResourceManagementClient();
             SubscriptionClient = GetSubscriptionClient();
             DataLakeStoreAccountManagementClient = GetDataLakeStoreAccountManagementClient(context);
+            DataLakeStoreFileSystemManagementClient = GetDataLakeStoreFileSystemManagementClient(context);
             DataLakeAnalyticsAccountManagementClient = GetDataLakeAnalyticsAccountManagementClient(context);
             DataLakeAnalyticsJobManagementClient = GetDataLakeAnalyticsJobManagementClient(context);
             DataLakeAnalyticsCatalogManagementClient = GetDataLakeAnalyticsCatalogManagementClient(context);
@@ -207,6 +210,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Test.ScenarioTests
                 DataLakeAnalyticsJobManagementClient,
                 DataLakeAnalyticsCatalogManagementClient,
                 DataLakeStoreAccountManagementClient,
+                DataLakeStoreFileSystemManagementClient,
                 AuthorizationManagementClient,
                 StorageManagementClient,
                 GalleryClient
@@ -247,6 +251,11 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Test.ScenarioTests
         private DataLakeAnalyticsAccountManagementClient GetDataLakeAnalyticsAccountManagementClient(MockContext context)
         {
             return context.GetServiceClient<DataLakeAnalyticsAccountManagementClient>(TestEnvironmentFactory.GetTestEnvironment());
+        }
+
+        private DataLakeStoreFileSystemManagementClient GetDataLakeStoreFileSystemManagementClient(MockContext context)
+        {
+            return context.GetServiceClient<DataLakeStoreFileSystemManagementClient>(TestEnvironmentFactory.GetTestEnvironment(), true);
         }
 
         private DataLakeAnalyticsJobManagementClient GetDataLakeAnalyticsJobManagementClient(MockContext context)

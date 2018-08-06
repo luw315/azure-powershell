@@ -475,8 +475,6 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics
             )]
         public string ScopeSdkPath { get; set; }
 
-        public SwitchParameter SuppressParameterQuoting { get; set; }
-
         protected override void BeginProcessing()
         {
             //AppDomain.CurrentDomain.AssemblyResolve += BindingRedirect.CurrentDomain_BindingRedirect;

@@ -9,6 +9,7 @@
     using Microsoft.Azure.Management.DataLake.Store;
     using Microsoft.Rest.Azure;
     using Analytics;
+    using Rest;
 
     public interface IExtensionOperations
     {
@@ -18,17 +19,15 @@
         /// <param name="accountName">DataLake Analytics account name</param>
         /// <param name="jobIdentity">jobIdentity</param>
         /// <param name="parameters" cref="CreateScopeJobParameters">CreateScopeJobParameters</param>
-        /// <param name="resourceGroup">DataLake Analytics account resourceGroup</param>
-        /// <param name="createScopeJobExtensionParameters"  cref="CreateScopeJobExtensionParameters">CreateScopeJobExtensionParameters</param>
-        /// <param name="dataLakeAnalyticsAccountManagementClient" cref="DataLakeAnalyticsAccountManagementClient"></param>
+        /// <param name="localResources"  cref="localResources">localResources</param>
+        /// <param name="adlsAccount">Data Lake Store account</param>
         /// <param name="cancellationToken" cref="CancellationToken"></param>
         /// <returns></returns>
         Task<AzureOperationResponse<JobInformation>> CreateWithHttpMessagesAsync(string accountName,
             Guid jobIdentity, CreateScopeJobParameters parameters,
-            CreateScopeJobExtensionParameters createScopeJobExtensionParameters = null,
+            List<ScopeJobResource> localResources = null,
             Dictionary<string, List<string>> customHeaders = null,
-            string resourceGroup = null,
-            IDataLakeAnalyticsAccountManagementClient dataLakeAnalyticsAccountManagementClient = null,
+            DataLakeStoreAccountInfo adlsAccount = null,
             CancellationToken cancellationToken = default(CancellationToken));
 
 
@@ -54,11 +53,11 @@
         /// </summary>
         /// <param name="accountName">DataLake Analytics account name</param>
         /// <param name="resourceGroup">DataLake Analytics account resourceGroup</param>
-        /// <param name="dataLakeAnalyticsAccountManagementClient">dataLakeAnalyticsAccountManagementClient</param>
+        /// <param name="subscriptionId">subscriptionId</param>
+        /// <param name="credentials">credentials</param>
         /// <param name="cancellationToken"></param>
-        /// <returns>Data root. For example: adl://sandboxadl.azuredatalakestore.net/</returns>
-        Task<string> GetDataRootAsync(string accountName, string resourceGroup,
-            IDataLakeAnalyticsAccountManagementClient dataLakeAnalyticsAccountManagementClient,
+        /// <returns>Data root</returns>
+        Task<DataLakeStoreAccountInfo> GetDataRootAsync(string accountName, string resourceGroup, string subscriptionId, ServiceClientCredentials credentials,
             CancellationToken cancellationToken = default(CancellationToken));
     }
 }

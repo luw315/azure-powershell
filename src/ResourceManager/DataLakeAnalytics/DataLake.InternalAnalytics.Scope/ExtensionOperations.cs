@@ -52,11 +52,15 @@
         /// <param name='parameters'>
         /// The parameters to submit a job.
         /// </param>
+        /// <param name='localResources'>
+        /// List of files that need to be uploaded with the job.
+        /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
         /// </param>
-        /// <param name="resourceGroup">DataLake Analytics account resourceGroup</param>
-        /// <param name="dataLakeAnalyticsAccountManagementClient" cref="DataLakeAnalyticsAccountManagementClient"></param>
+        /// <param name="adlsAccount">
+        /// Upload the local resources to the Azure Data Lake Store account.
+        /// </param>
         /// <param name='cancellationToken' cerf="CancellationToken">
         /// The cancellation token.
         /// </param>
@@ -77,10 +81,9 @@
         /// </return>
         public async Task<AzureOperationResponse<JobInformation>> CreateWithHttpMessagesAsync(string accountName,
             Guid jobIdentity, CreateScopeJobParameters parameters,
-            CreateScopeJobExtensionParameters createScopeJobExtensionParameters = null, 
+            List<ScopeJobResource> localResources = null, 
             Dictionary<string, List<string>> customHeaders = null,
-            string resourceGroup = null,
-            IDataLakeAnalyticsAccountManagementClient dataLakeAnalyticsAccountManagementClient = null,
+            DataLakeStoreAccountInfo adlsAccount = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             if (accountName == null)
@@ -105,18 +108,12 @@
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
             }
 
-            if (createScopeJobExtensionParameters != null && createScopeJobExtensionParameters.EmbeddedFiles != null &&
-                createScopeJobExtensionParameters.EmbeddedFiles.Any())
+            if (localResources != null && localResources.Any())
             {
                 var createScopeJobProperties = parameters.Properties as CreateScopeJobProperties;
                 if (createScopeJobProperties != null)
                 {
-                    var adlResources =
-                        await
-                            this.UploadResourceAsync(accountName, resourceGroup, jobIdentity,
-                                createScopeJobExtensionParameters.EmbeddedFiles.ToArray(),
-                                Client.Credentials, dataLakeAnalyticsAccountManagementClient,
-                                cancellationToken).ConfigureAwait(false);
+                    var adlResources = await this.UploadResourceAsync(adlsAccount, jobIdentity, localResources.ToArray(), Client.Credentials, cancellationToken).ConfigureAwait(false);
 
                     if (createScopeJobProperties.Resources == null)
                     {
@@ -196,11 +193,11 @@
         /// </summary>
         /// <param name="accountName">DataLake Analytics account name</param>
         /// <param name="resourceGroup">DataLake Analytics account resourceGroup</param>
-        /// <param name="dataLakeAnalyticsAccountManagementClient">dataLakeAnalyticsAccountManagementClient</param>
+        /// <param name="subscriptionId">subscriptionId</param>
+        /// <param name="credentials">credentials</param>
         /// <param name="cancellationToken"></param>
-        /// <returns>Data root. For example: adl://sandboxadl.azuredatalakestore.net/</returns>
-        public async Task<string> GetDataRootAsync(string accountName, string resourceGroup,
-            IDataLakeAnalyticsAccountManagementClient dataLakeAnalyticsAccountManagementClient,
+        /// <returns>Data root</returns>
+        public async Task<DataLakeStoreAccountInfo> GetDataRootAsync(string accountName, string resourceGroup, string subscriptionId, ServiceClientCredentials credentials,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             if (string.IsNullOrWhiteSpace(accountName))
@@ -213,14 +210,11 @@
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroup");
             }
 
-            if (dataLakeAnalyticsAccountManagementClient == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "dataLakeAnalyticsAccountManagementClient");
-            }
+            DataLakeAnalyticsAccountManagementClient accountClient = new DataLakeAnalyticsAccountManagementClient(credentials);
+            accountClient.SubscriptionId = subscriptionId;
 
-            DataLakeAnalyticsAccount account = await dataLakeAnalyticsAccountManagementClient.Account.GetAsync(resourceGroup, accountName, cancellationToken).ConfigureAwait(false);
-            DataLakeStoreAccountInfo sa = account.DataLakeStoreAccounts.First(s => s.Name == account.DefaultDataLakeStoreAccount);
-            return string.Format("adl://{0}.{1}/", sa.Name, sa.Suffix);
+            DataLakeAnalyticsAccount account = await accountClient.Account.GetAsync(resourceGroup, accountName, cancellationToken).ConfigureAwait(false);
+            return account.DataLakeStoreAccounts.First(s => s.Name == account.DefaultDataLakeStoreAccount);
         }
     }
 }

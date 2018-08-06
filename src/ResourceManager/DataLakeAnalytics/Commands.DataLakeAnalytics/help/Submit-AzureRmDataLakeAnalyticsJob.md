@@ -456,7 +456,7 @@ The scope Sdk path
 
 ```yaml
 Type: String
-Parameter Sets: (All)
+Parameter Sets: ScopeJobWithScriptPath
 Aliases: 
 
 Required: True

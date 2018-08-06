@@ -18,7 +18,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope
 {
     public static class ScopeHelpers
     {
-        private static bool ExtractJobResources(string scriptPath, string tokenFile, SubmitAzureDataLakeAnalyticsJob command, string resourceGroup, out string newScriptPath, out List<string> clusterResources, out List<string> localResources)
+        private static bool ExtractJobResources(string scriptPath, string tokenFile, SubmitAzureDataLakeAnalyticsJob command, DataLakeStoreAccountInfo adlsAccount, out string newScriptPath, out List<string> clusterResources, out List<string> localResources)
         {
             StringBuilder extractCommands = new StringBuilder();
             extractCommands.Append("extractjobresources -on adl ");
@@ -60,7 +60,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope
 
             if (!string.IsNullOrEmpty(command.Account))
             {
-                extractCommands.Append("-vc " + command.DataLakeAnalyticsClient.GetDataRoot(resourceGroup, command.Account) + " ");
+                extractCommands.Append(string.Format("-vc adl://{0}.{1}/ ", adlsAccount.Name, adlsAccount.Suffix));
             }
 
             extractCommands.Append("-SecureInfoFile " + tokenFile + " ");
@@ -122,13 +122,10 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope
             }
         }
 
-        public static JobInformation DoSubmit(List<string> clusterResources, List<string> localResources, string scripPath, SubmitAzureDataLakeAnalyticsJob command, string resourceGroup)
+        public static JobInformation DoSubmit(List<string> clusterResources, List<string> localResources, string scripPath, SubmitAzureDataLakeAnalyticsJob command, DataLakeStoreAccountInfo adlsAccount)
         {
             command.WriteVerbose("Submitting Job");
-            CreateScopeJobExtensionParameters createScopeJobExtensionParameters = new CreateScopeJobExtensionParameters()
-            {
-                EmbeddedFiles = localResources != null ? localResources.Select(f => new ScopeJobResource(Path.GetFileNameWithoutExtension(f), f)).ToList() : new List<ScopeJobResource>()
-            };
+            List<ScopeJobResource> localRes = localResources != null ? localResources.Select(f => new ScopeJobResource(Path.GetFileNameWithoutExtension(f), f)).ToList() : new List<ScopeJobResource>();
 
             CreateScopeJobProperties properties = new CreateScopeJobProperties(File.ReadAllText(scripPath),
                 command.Runtime, resources: clusterResources != null ? clusterResources.Select(r => new ScopeJobResource(Path.GetFileNameWithoutExtension(r), r)).ToList() : new List<ScopeJobResource>());
@@ -138,7 +135,7 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope
             CreateScopeJobParameters jobParameters = new CreateScopeJobParameters(Microsoft.Azure.Management.DataLake.Analytics.Models.JobType.Scope,
                 properties, command.Name, command.AnalyticsUnits > 0 ? command.AnalyticsUnits : (int?)null, command.Priority, tags: customProperties);
 
-            return command.DataLakeAnalyticsClient.JobExClient.Extension.Create(command.Account, Guid.NewGuid(), jobParameters, resourceGroup, createScopeJobExtensionParameters, command.DataLakeAnalyticsClient.GetDataLakeAnalyticsAccountManagementClient());
+            return command.DataLakeAnalyticsClient.JobExClient.Extension.Create(command.Account, Guid.NewGuid(), jobParameters, adlsAccount, localRes);
         }
 
         public static JobInformation Submit(SubmitAzureDataLakeAnalyticsJob command, string scriptPath)
@@ -201,10 +198,10 @@ namespace Microsoft.Azure.Commands.DataLakeAnalytics.Commands.Scope
                 List<string> clusterResources;
                 List<string> localResources;
                 string resourceGroup = command.ResourceGroup ?? command.DataLakeAnalyticsClient.GetResourceGroupByAccountName(command.Account);
-
-                if (ExtractJobResources(scriptWithCodeBehindPath, tokenFile, command, resourceGroup, out newScriptPath, out clusterResources, out localResources))
+                DataLakeStoreAccountInfo adlsAccount = command.DataLakeAnalyticsClient.GetDataRoot(resourceGroup, command.Account);
+                if (ExtractJobResources(scriptWithCodeBehindPath, tokenFile, command, adlsAccount, out newScriptPath, out clusterResources, out localResources))
                 {
-                    JobInformation jobinfo = DoSubmit(clusterResources, localResources, newScriptPath, command, resourceGroup);
+                    JobInformation jobinfo = DoSubmit(clusterResources, localResources, newScriptPath, command, adlsAccount);
                     command.WriteVerbose(jobinfo == null ? "Submit returned NULL JobInfoObject" : "Finished Submitting Job");
                     return jobinfo;
                 }
