@@ -22,7 +22,7 @@
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
     <Id>Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope</Id>
-    <Version>0.0.3-preview</Version>
+    <Version>0.0.4-preview</Version>
     <Title>Microsoft.Azure.Management.DataLake.InternalAnalytics.Scope</Title>
     <Authors>luw</Authors>
     <Owners>luw</Owners>
